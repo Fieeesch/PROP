@@ -27,6 +27,7 @@ Vue/Vite-Frontend zur Konfiguration und Visualisierung.
 - [`laser/WaveRendererCpp`](laser/WaveRendererCpp): eigenständiger,
   headless C++-Laser-Renderer für lokale PPM-Ausgaben und Benchmarks
 - [`scripts`](scripts): projektübergreifende Build-, Start- und Benchmark-Skripte
+- [`PROP_Paper.pdf`](Prop_Paper.pdf): Schriftliche Ausarbeitung und Erläuterung des Projekts
 
 ## Quick Start mit Docker
 

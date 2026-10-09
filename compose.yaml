@@ -1,0 +1,32 @@
+services:
+  prism-2d:
+    build:
+      context: .
+      dockerfile: docker/2d-renderer.Dockerfile
+    environment:
+      HOST: 0.0.0.0
+      PORT: 8080
+    restart: unless-stopped
+
+  prism-cuda:
+    build:
+      context: .
+      dockerfile: docker/cuda-renderer.Dockerfile
+    environment:
+      HOST: 0.0.0.0
+      PORT: 8091
+    gpus: all
+    restart: unless-stopped
+
+  laser-frontend:
+    build:
+      context: .
+      dockerfile: docker/frontend.Dockerfile
+    ports:
+      - "${FRONTEND_PORT:-5173}:80"
+    depends_on:
+      prism-2d:
+        condition: service_healthy
+      prism-cuda:
+        condition: service_healthy
+    restart: unless-stopped

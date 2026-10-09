@@ -1,0 +1,23 @@
+{
+  "name": "scene-configurator-client",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 0.0.0.0",
+    "build": "vite build",
+    "preview": "vite preview --host 0.0.0.0"
+  },
+  "dependencies": {
+    "@lucide/vue": "^1.18.0",
+    "three": "^0.185.1",
+    "vue": "^3.5.13"
+  },
+  "devDependencies": {
+    "@types/three": "^0.185.1",
+    "@vitejs/plugin-vue": "^5.2.1",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.3",
+    "vue-tsc": "^2.1.10"
+  }
+}

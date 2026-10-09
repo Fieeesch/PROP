@@ -1,0 +1,14 @@
+.git
+.agents
+.codex
+**/node_modules
+**/dist
+**/build
+**/cmake-build-*
+**/out
+**/results
+**/tmp
+benchmarks
+finale_abgabe
+shared/image-archive
+*.zip

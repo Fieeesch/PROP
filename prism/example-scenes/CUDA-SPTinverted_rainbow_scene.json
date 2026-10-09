@@ -1,0 +1,168 @@
+{
+  "version": 1,
+  "objects": [
+    {
+      "objectId": "3fc86203-2969-4292-92a9-9ded2a6d0b10",
+      "objectName": "Spectral Render Settings",
+      "objectType": "SpectralRenderSettings",
+      "objectCategory": "additional",
+      "previewSupported": false,
+      "properties": {
+        "imageWidth": 512,
+        "imageHeight": 512,
+        "samplesPerPixel": 64,
+        "maxDepth": 3,
+        "spectralSamples": 64,
+        "lambdaMinNm": 380,
+        "lambdaMaxNm": 780
+      }
+    },
+    {
+      "objectId": "40af234e-af02-4cf7-ab20-28e684c05792",
+      "objectName": "Camera",
+      "objectType": "Camera",
+      "objectCategory": "additional",
+      "previewSupported": true,
+      "properties": {
+        "lookFrom": [
+          1.808,
+          0.5,
+          0.47
+        ],
+        "lookAt": [
+          0,
+          0.5,
+          -0.35
+        ],
+        "up": [
+          0,
+          0,
+          -1
+        ],
+        "verticalFov": 60,
+        "aperture": 0,
+        "focusDistance": 1
+      }
+    },
+    {
+      "objectId": "701dfae1-7a36-4841-bd89-e8d02d1f78a6",
+      "objectName": "Glass",
+      "objectType": "Material",
+      "objectCategory": "additional",
+      "previewSupported": false,
+      "properties": {
+        "type": "dielectric",
+        "albedo": [
+          1,
+          1,
+          1
+        ],
+        "fuzz": 0,
+        "ior": 1.5837,
+        "dispersive": true,
+        "dispersionA": 1.5837,
+        "dispersionB": 10800,
+        "dispersionC": 0,
+        "absorptionDensity": 0,
+        "absorptionColor": [
+          1,
+          1,
+          1
+        ],
+        "absorptionProfile": "constant",
+        "emission": [
+          0,
+          0,
+          0
+        ],
+        "emissionProfile": "d65-white",
+        "spectralProfile": "rgb"
+      }
+    },
+    {
+      "objectId": "2fbd50c7-2ba7-4a51-93d2-fe8479984ae3",
+      "objectName": "Light",
+      "objectType": "Material",
+      "objectCategory": "additional",
+      "previewSupported": false,
+      "properties": {
+        "type": "emissive",
+        "albedo": [
+          1,
+          1,
+          1
+        ],
+        "fuzz": 0,
+        "ior": 1,
+        "dispersive": false,
+        "dispersionA": 1.5837,
+        "dispersionB": 10800,
+        "dispersionC": 0,
+        "absorptionDensity": 0,
+        "absorptionColor": [
+          1,
+          1,
+          1
+        ],
+        "absorptionProfile": "constant",
+        "emission": [
+          4,
+          4,
+          4
+        ],
+        "emissionProfile": "d65-white",
+        "spectralProfile": "rgb"
+      }
+    },
+    {
+      "objectId": "09fa610b-0122-4fde-befe-7c844d98d9b8",
+      "objectName": "Triangular Prism",
+      "objectType": "TriangularPrism",
+      "objectCategory": "additional",
+      "previewSupported": true,
+      "properties": {
+        "baseCenter": [
+          0,
+          0,
+          0
+        ],
+        "baseSize": 1,
+        "height": 1,
+        "rotationAxis": [
+          0,
+          1,
+          0
+        ],
+        "rotationAngleDeg": 180,
+        "material": {
+          "$ref": "701dfae1-7a36-4841-bd89-e8d02d1f78a6"
+        }
+      }
+    },
+    {
+      "objectId": "765b7956-670d-4f2d-b0e3-69ac0f5212ec",
+      "objectName": "Light Source",
+      "objectType": "Rectangle",
+      "objectCategory": "additional",
+      "previewSupported": true,
+      "properties": {
+        "orientation": "yz",
+        "minA": 0.49,
+        "maxA": 0.51,
+        "minB": 0.465,
+        "maxB": 0.475,
+        "k": -1.808,
+        "rotationAxis": [
+          0,
+          1,
+          0
+        ],
+        "rotationAngleDeg": 20,
+        "material": {
+          "$ref": "2fbd50c7-2ba7-4a51-93d2-fe8479984ae3"
+        }
+      }
+    }
+  ],
+  "renderer": "CUDA Spectral Pathtracer"
+}

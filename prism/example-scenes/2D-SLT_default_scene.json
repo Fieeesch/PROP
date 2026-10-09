@@ -1,0 +1,107 @@
+{
+  "version": 1,
+  "objects": [
+    {
+      "objectId": "ca7dc628-95a3-4647-b763-938e37808f5a",
+      "objectName": "Render Settings",
+      "objectType": "RenderSettings",
+      "objectCategory": "additional",
+      "previewSupported": true,
+      "properties": {
+        "recursionDepth": 4,
+        "lambdaMin": 0.38,
+        "lambdaMax": 0.78,
+        "spectrumBins": 81,
+        "lightPower": 200,
+        "lightSamples": 16777216,
+        "imageExposure": 100,
+        "imageWidth": 512,
+        "imageHeight": 512,
+        "rngSeedEnabled": false,
+        "rngSeed": 1
+      }
+    },
+    {
+      "objectId": "887a87af-5b51-42a5-9d3b-4ba2b205cbb0",
+      "objectName": "Image Plane",
+      "objectType": "ImagePlane",
+      "objectCategory": "additional",
+      "previewSupported": true,
+      "properties": {
+        "point": [
+          1.808,
+          -0.97,
+          0
+        ],
+        "normal": [
+          -1,
+          0,
+          0
+        ],
+        "right": [
+          0,
+          0,
+          1
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "width": 0.1,
+        "height": 0.1
+      }
+    },
+    {
+      "objectId": "534376f6-1dda-402e-8ee9-ef88c263d581",
+      "objectName": "Prism",
+      "objectType": "Prism",
+      "objectCategory": "additional",
+      "previewSupported": true,
+      "properties": {
+        "position": [
+          0,
+          0
+        ],
+        "prismAngleDeg": 60,
+        "rotationDeg": 0,
+        "radius": 1,
+        "zDepth": 1,
+        "material": "bk7"
+      }
+    },
+    {
+      "objectId": "4b9c2952-a429-4a59-8331-bfcceeca72db",
+      "objectName": "Circle Light",
+      "objectType": "CircleLight",
+      "objectCategory": "additional",
+      "previewSupported": true,
+      "properties": {
+        "type": "circle",
+        "spdPreset": "d65",
+        "center": [
+          -1.808,
+          -1,
+          0
+        ],
+        "direction": [
+          0.94,
+          0.342,
+          0
+        ],
+        "right": [
+          0,
+          0,
+          -1
+        ],
+        "up": [
+          -0.342,
+          0.94,
+          0
+        ],
+        "radius": 0.01
+      }
+    }
+  ],
+  "renderer": "2D Renderer"
+}

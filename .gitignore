@@ -1,0 +1,8 @@
+.idea
+# Native build outputs
+prism/2Drenderer/cmake-build-*/
+prism/CUDA-Spectral-Pathtracer/out/build/
+prism/CUDA-Spectral-Pathtracer/build/
+
+# Local runtime logs
+.runtime-logs/

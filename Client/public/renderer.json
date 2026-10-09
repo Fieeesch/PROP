@@ -1,0 +1,654 @@
+[
+  {
+    "name": "2D Renderer",
+    "baseUrl": "/2Dprism-api",
+    "strategyId": "prism-ray",
+    "capabilities": {
+      "preview": {
+        "maxBounces": 3
+      },
+      "objects": {
+        "RenderSettings": {
+          "label": "Render Settings",
+          "required": ["recursionDepth", "lambdaMin", "lambdaMax", "spectrumBins", "lightPower", "lightSamples", "imageExposure", "imageWidth", "imageHeight", "rngSeedEnabled", "rngSeed"],
+          "defaults": {
+            "recursionDepth": 4,
+            "lambdaMin": 0.38,
+            "lambdaMax": 0.78,
+            "spectrumBins": 81,
+            "lightPower": 200,
+            "lightSamples": 16777216,
+            "imageExposure": 100,
+            "imageWidth": 512,
+            "imageHeight": 512,
+            "rngSeedEnabled": false,
+            "rngSeed": 1
+          },
+          "maxInstances": 1,
+          "minInstances": 1,
+          "validation": {
+            "recursionDepth": { "type": "integer", "min": 1 },
+            "lambdaMin": { "type": "number", "min": 0, "lessThan": "lambdaMax" },
+            "lambdaMax": { "type": "number", "min": 0 },
+            "spectrumBins": { "type": "integer", "min": 2 },
+            "lightPower": { "type": "number", "min": 0 },
+            "lightSamples": { "type": "integer", "min": 1 },
+            "imageExposure": { "type": "number", "min": 0 },
+            "imageWidth": { "type": "integer", "min": 1 },
+            "imageHeight": { "type": "integer", "min": 1 },
+            "rngSeedEnabled": { "type": "boolean" },
+            "rngSeed": { "type": "integer", "min": 0, "max": 4294967295 }
+          },
+          "previewSupported": true
+        },
+        "ImagePlane": {
+          "label": "Image Plane",
+          "required": ["point", "normal", "right", "up", "width", "height"],
+          "defaults": {
+            "point": [1.808, -0.97, 0],
+            "normal": [-1, 0, 0],
+            "right": [0, 0, 1],
+            "up": [0, 1, 0],
+            "width": 0.1,
+            "height": 0.1
+          },
+          "maxInstances": 1,
+          "minInstances": 1,
+          "validation": {
+            "point": { "type": "vector3" },
+            "normal": { "type": "vector3", "nonZero": true },
+            "right": { "type": "vector3", "nonZero": true },
+            "up": { "type": "vector3", "nonZero": true },
+            "width": { "type": "number", "min": 0.001 },
+            "height": { "type": "number", "min": 0.001 }
+          },
+          "previewSupported": true
+        },
+        "CircleLight": {
+          "label": "Circle Light",
+          "required": ["spdPreset", "center", "direction", "right", "up", "radius"],
+          "defaults": {
+            "type": "circle",
+            "spdPreset": "d65",
+            "center": [-1.808, -1, 0],
+            "direction": [0.94, 0.342, 0],
+            "right": [0, 0, -1],
+            "up": [-0.342, 0.94, 0],
+            "radius": 0.01
+          },
+          "maxInstances": 1,
+          "exclusiveWith": ["AreaLight"],
+          "validation": {
+            "type": { "type": "string", "options": ["circle"] },
+            "spdPreset": { "type": "string", "options": ["d65", "uniform", "tungsten", "leds", "fluorescent", "highPressureSodium", "custom"] },
+            "center": { "type": "vector3" },
+            "direction": { "type": "vector3", "nonZero": true },
+            "right": { "type": "vector3", "nonZero": true },
+            "up": { "type": "vector3", "nonZero": true },
+            "radius": { "type": "number", "min": 0.001 }
+          },
+          "previewSupported": true
+        },
+        "AreaLight": {
+          "label": "Area Light",
+          "required": ["spdPreset","center", "direction", "right", "up", "width", "height"],
+          "defaults": {
+            "type": "area",
+            "spdPreset": "d65",
+            "center": [-1.808, -1.0, 0],
+            "direction": [0.94, 0.342, 0],
+            "right": [0, 0, -1],
+            "up": [-0.342, 0.94, 0],
+            "width": 0.02,
+            "height": 0.01
+          },
+          "maxInstances": 1,
+          "exclusiveWith": ["CircleLight"],
+          "validation": {
+            "type": { "type": "string", "options": ["area"] },
+            "spdPreset": { "type": "string", "options": ["d65", "uniform", "tungsten", "leds", "fluorescent", "highPressureSodium", "custom"] },
+            "center": { "type": "vector3" },
+            "direction": { "type": "vector3", "nonZero": true },
+            "right": { "type": "vector3", "nonZero": true },
+            "up": { "type": "vector3", "nonZero": true },
+            "width": { "type": "number", "min": 0.001 },
+            "height": { "type": "number", "min": 0.001 }
+          },
+          "previewSupported": true
+        },
+        "Prism": {
+          "label": "Prism",
+          "required": ["position", "prismAngleDeg", "rotationDeg", "radius", "zDepth", "material"],
+          "defaults": {
+            "position": [0, 0],
+            "prismAngleDeg": 60,
+            "rotationDeg": 0,
+            "radius": 1,
+            "zDepth": 1,
+            "material": "bk7"
+          },
+          "maxInstances": 1,
+          "minInstances": 1,
+          "validation": {
+            "position": { "type": "vector2" },
+            "prismAngleDeg": { "type": "number", "min": 0.001, "max": 179.999 },
+            "rotationDeg": { "type": "number" },
+            "radius": { "type": "number", "min": 0.001 },
+            "zDepth": { "type": "number", "min": 0.001 },
+            "material": { "type": "string", "options": ["bk7", "sf57", "fk51a", "lak34"] }
+          },
+          "previewSupported": true
+        }
+      }
+    }
+  },
+  {
+    "name": "CUDA Spectral Pathtracer",
+    "baseUrl": "/cuda-api",
+    "strategyId": "spectral-pathtracer",
+    "capabilities": {
+      "preview": {
+        "maxBounces": 4
+      },
+      "objects": {
+        "SpectralRenderSettings": {
+          "label": "Spectral Render Settings",
+          "required": ["imageWidth", "imageHeight", "samplesPerPixel", "maxDepth", "spectralSamples", "lambdaMinNm", "lambdaMaxNm"],
+          "defaults": {
+            "imageWidth": 640,
+            "imageHeight": 480,
+            "samplesPerPixel": 64,
+            "maxDepth": 12,
+            "spectralSamples": 16,
+            "lambdaMinNm": 380,
+            "lambdaMaxNm": 780
+          },
+          "maxInstances": 1,
+          "minInstances": 1,
+          "validation": {
+            "imageWidth": { "type": "integer", "min": 1 },
+            "imageHeight": { "type": "integer", "min": 1 },
+            "samplesPerPixel": { "type": "integer", "min": 1 },
+            "maxDepth": { "type": "integer", "min": 1 },
+            "spectralSamples": { "type": "integer", "min": 1 },
+            "lambdaMinNm": { "type": "number", "min": 380, "lessThan": "lambdaMaxNm" },
+            "lambdaMaxNm": { "type": "number", "max": 780 }
+          },
+          "previewSupported": false
+        },
+        "Camera": {
+          "label": "Camera",
+          "required": ["lookFrom", "lookAt", "up", "verticalFov", "aperture", "focusDistance"],
+          "defaults": {
+            "lookFrom": [3, 2, -6],
+            "lookAt": [0, 0.5, 0],
+            "up": [0, 1, 0],
+            "verticalFov": 42,
+            "aperture": 0,
+            "focusDistance": 6
+          },
+          "maxInstances": 1,
+          "minInstances": 1,
+          "validation": {
+            "lookFrom": { "type": "vector3" },
+            "lookAt": { "type": "vector3" },
+            "up": { "type": "vector3", "nonZero": true },
+            "verticalFov": { "type": "number", "min": 1, "max": 170 },
+            "aperture": { "type": "number", "min": 0 },
+            "focusDistance": { "type": "number", "min": 0.001 }
+          },
+          "previewSupported": true
+        },
+        "Material": {
+          "label": "Material",
+          "required": ["type"],
+          "defaults": {
+            "type": "dielectric",
+            "albedo": [1, 1, 1],
+            "fuzz": 0,
+            "ior": 1.5837,
+            "dispersive": true,
+            "dispersionA": 1.5837,
+            "dispersionB": 10800,
+            "dispersionC": 0,
+            "absorptionDensity": 0,
+            "absorptionColor": [1, 1, 1],
+            "absorptionProfile": "constant",
+            "emission": [0, 0, 0],
+            "emissionProfile": "d65-white",
+            "spectralProfile": "rgb"
+          },
+          "validation": {
+            "type": { "type": "string", "options": ["lambertian", "metal", "dielectric", "emissive", "spectral"] },
+            "albedo": { "type": "vector3" },
+            "fuzz": { "type": "number", "min": 0, "max": 1 },
+            "ior": { "type": "number", "min": 0.001 },
+            "dispersive": { "type": "boolean" },
+            "dispersionA": { "type": "number", "min": 0.001 },
+            "dispersionB": { "type": "number" },
+            "dispersionC": { "type": "number" },
+            "absorptionDensity": { "type": "number", "min": 0 },
+            "absorptionColor": { "type": "vector3" },
+            "absorptionProfile": { "type": "string", "options": ["constant", "green-filter", "red-filter", "d65-white", "warm-blackbody", "cornell-white", "cornell-green", "cornell-red", "cornell-light", "rgb"] },
+            "emission": { "type": "vector3" },
+            "emissionProfile": { "type": "string", "options": ["d65-white", "warm-blackbody", "cornell-light", "rgb", "constant", "green-filter", "red-filter", "cornell-white", "cornell-green", "cornell-red"] },
+            "spectralProfile": { "type": "string", "options": ["rgb", "constant", "green-filter", "red-filter", "d65-white", "warm-blackbody", "cornell-white", "cornell-green", "cornell-red", "cornell-light"] }
+          },
+          "previewSupported": false
+        },
+        "Sphere": {
+          "label": "Sphere",
+          "required": ["center", "radius", "material"],
+          "defaults": {
+            "center": [0, 0.5, 0],
+            "radius": 0.5,
+            "material": { "$ref": "" }
+          },
+          "validation": {
+            "center": { "type": "vector3" },
+            "radius": { "type": "number", "min": 0.001 },
+            "material": { "type": "reference", "objectTypes": ["Material"], "allowEmpty": true }
+          },
+          "previewSupported": true
+        },
+        "Rectangle": {
+          "label": "Rectangle",
+          "required": ["orientation", "minA", "maxA", "minB", "maxB", "k", "material"],
+          "defaults": {
+            "orientation": "xz",
+            "minA": -3,
+            "maxA": 3,
+            "minB": -3,
+            "maxB": 3,
+            "k": 0,
+            "rotationAxis": [0, 1, 0],
+            "rotationAngleDeg": 0,
+            "material": { "$ref": "" }
+          },
+          "validation": {
+            "orientation": { "type": "string", "options": ["xy", "xz", "yz"] },
+            "minA": { "type": "number", "lessThan": "maxA" },
+            "maxA": { "type": "number" },
+            "minB": { "type": "number", "lessThan": "maxB" },
+            "maxB": { "type": "number" },
+            "k": { "type": "number" },
+            "rotationAxis": { "type": "vector3", "nonZero": true },
+            "rotationAngleDeg": { "type": "number" },
+            "material": { "type": "reference", "objectTypes": ["Material"], "allowEmpty": true }
+          },
+          "previewSupported": true
+        },
+        "TriangularPrism": {
+          "label": "Triangular Prism",
+          "required": ["baseCenter", "baseSize", "height", "material"],
+          "defaults": {
+            "baseCenter": [0, 0.01, 0],
+            "baseSize": 1,
+            "height": 1,
+            "rotationAxis": [0, 1, 0],
+            "rotationAngleDeg": 0,
+            "material": { "$ref": "" }
+          },
+          "validation": {
+            "baseCenter": { "type": "vector3" },
+            "baseSize": { "type": "number", "min": 0.001 },
+            "height": { "type": "number", "min": 0.001 },
+            "rotationAxis": { "type": "vector3", "nonZero": true },
+            "rotationAngleDeg": { "type": "number" },
+            "material": { "type": "reference", "objectTypes": ["Material"], "allowEmpty": true }
+          },
+          "previewSupported": true
+        },
+        "Box": {
+          "label": "Box",
+          "required": ["min", "max", "material"],
+          "defaults": {
+            "min": [-0.5, 0, -0.5],
+            "max": [0.5, 1, 0.5],
+            "rotationAxis": [0, 1, 0],
+            "rotationAngleDeg": 0,
+            "material": { "$ref": "" }
+          },
+          "validation": {
+            "min": { "type": "vector3" },
+            "max": { "type": "vector3" },
+            "rotationAxis": { "type": "vector3", "nonZero": true },
+            "rotationAngleDeg": { "type": "number" },
+            "material": { "type": "reference", "objectTypes": ["Material"], "allowEmpty": true }
+          },
+          "previewSupported": true
+        },
+        "ObjMesh": {
+          "label": "OBJ Mesh",
+          "required": ["objFile", "position", "size", "scale", "rotationAxis", "rotationAngleDeg", "material"],
+          "defaults": {
+            "objFile": {
+              "fileName": "",
+              "content": "",
+              "sizeBytes": 0
+            },
+            "position": [0, 0, 0],
+            "size": 1,
+            "scale": [1, 1, 1],
+            "rotationAxis": [0, 1, 0],
+            "rotationAngleDeg": 0,
+            "material": { "$ref": "" }
+          },
+          "validation": {
+            "objFile": {
+              "type": "file",
+              "accept": [".obj"],
+              "maxSizeBytes": 4000000
+            },
+            "position": { "type": "vector3" },
+            "size": { "type": "number", "min": 0.001 },
+            "scale": { "type": "vector3", "nonZero": true },
+            "rotationAxis": { "type": "vector3", "nonZero": true },
+            "rotationAngleDeg": { "type": "number" },
+            "material": { "type": "reference", "objectTypes": ["Material"], "allowEmpty": true }
+          },
+          "previewSupported": true
+        }
+      }
+    }
+  },
+  {
+    "name": "Laser Wave Renderer",
+    "strategyId": "laser-wave",
+    "capabilities": {
+      "preview": {
+        "maxBounces": 0
+      },
+      "objects": {
+        "LaserSimulationSettings": {
+          "label": "Simulationseinstellungen",
+          "deletable": false,
+          "required": ["width", "height", "wallFactor", "lensFactor", "lensSupersampleFactor", "sensorFactor", "sensorSupersampleFactor", "fftZeroPaddingFactor", "planeWidthMm", "planeHeightMm", "baseSeed"],
+          "defaults": {
+            "width": 216,
+            "height": 216,
+            "wallFactor": 2,
+            "lensFactor": 1,
+            "lensSupersampleFactor": 2,
+            "sensorFactor": 1,
+            "sensorSupersampleFactor": 2,
+            "fftZeroPaddingFactor": 4,
+            "planeWidthMm": 5.12,
+            "planeHeightMm": 5.12,
+            "baseSeed": 42069
+          },
+          "minInstances": 1,
+          "maxInstances": 1,
+          "validation": {
+            "width": {
+              "label": "Basisauflösung – Breite",
+              "description": "Anzahl horizontaler Basissamples. Ändert nur Auflösung, Rechenzeit und Speicherbedarf, nicht die physische Größe von Wand, Linse oder Sensor.",
+              "gpuMemorySensitive": true,
+              "type": "integer",
+              "min": 1
+            },
+            "height": {
+              "label": "Basisauflösung – Höhe",
+              "description": "Anzahl vertikaler Basissamples. Ändert nur Auflösung, Rechenzeit und Speicherbedarf, nicht die physische Größe von Wand, Linse oder Sensor.",
+              "gpuMemorySensitive": true,
+              "type": "integer",
+              "min": 1
+            },
+            "wallFactor": {
+              "label": "Wand-Auflösungsfaktor",
+              "description": "Multipliziert die Basissamples für das Wandfeld. Ein höherer Wert tastet dieselbe physische Wandfläche feiner ab, benötigt aber mehr Speicher und Rechenzeit.",
+              "gpuMemorySensitive": true,
+              "type": "integer",
+              "min": 1
+            },
+            "lensFactor": {
+              "label": "Linsen-Auflösungsfaktor",
+              "description": "Multipliziert die Rasterauflösung der Linse, ohne ihren Aperturdurchmesser zu verändern. Höhere Werte erhöhen Genauigkeit und Ressourcenbedarf.",
+              "gpuMemorySensitive": true,
+              "type": "integer",
+              "min": 1
+            },
+            "lensSupersampleFactor": {
+              "label": "Linsen-Supersampling",
+              "description": "Zusätzliche interne Überabtastung des Linsenfelds. Reduziert Abtastartefakte, vergrößert aber die benötigten Puffer.",
+              "gpuMemorySensitive": true,
+              "type": "integer",
+              "min": 1
+            },
+            "sensorFactor": {
+              "label": "Sensor-Ausgabefaktor",
+              "description": "Multipliziert Breite und Höhe des ausgegebenen Sensorbilds. Die physische Sensorgröße bleibt unverändert.",
+              "gpuMemorySensitive": true,
+              "type": "integer",
+              "min": 1
+            },
+            "sensorSupersampleFactor": {
+              "label": "Sensor-Supersampling",
+              "description": "Berechnet intern mehrere Samples pro Ausgabepixel und mittelt sie. Verbessert die Bildqualität, erhöht aber Speicherbedarf und Rechenzeit deutlich.",
+              "gpuMemorySensitive": true,
+              "type": "integer",
+              "min": 1
+            },
+            "fftZeroPaddingFactor": {
+              "label": "FFT-Zero-Padding",
+              "description": "Vergrößert die FFT-Arbeitsflächen mit Nullen. Das reduziert periodische Randartefakte, kann den GPU-Speicherbedarf jedoch stark erhöhen.",
+              "gpuMemorySensitive": true,
+              "type": "integer",
+              "min": 1
+            },
+            "planeWidthMm": {
+              "label": "Simulationsfenster – Breite (mm)",
+              "description": "Physische Breite des berechneten Wandfelds. Sie bestimmt zusammen mit der Rasterauflösung den horizontalen Sampleabstand und kann deshalb das Ergebnis beeinflussen.",
+              "type": "number",
+              "min": 0.001
+            },
+            "planeHeightMm": {
+              "label": "Simulationsfenster – Höhe (mm)",
+              "description": "Physische Höhe des berechneten Wandfelds. Sie bestimmt zusammen mit der Rasterauflösung den vertikalen Sampleabstand und kann deshalb das Ergebnis beeinflussen.",
+              "type": "number",
+              "min": 0.001
+            },
+            "baseSeed": {
+              "label": "Zufalls-Seed der Wand",
+              "description": "Startwert für die zufällige Rauheitsstruktur. Derselbe Seed erzeugt bei gleicher Konfiguration dieselbe Wandstruktur.",
+              "type": "integer",
+              "min": 0
+            }
+          },
+          "previewSupported": true
+        },
+        "Laser": {
+          "label": "Laser",
+          "deletable": false,
+          "required": ["on", "center", "radiusMm", "wavelengthNm", "amplitudeVm"],
+          "hiddenProperties": ["azimuthDeg", "elevationDeg", "direction"],
+          "defaults": {
+            "on": true,
+            "center": [128, 128, 0],
+            "radiusMm": 1,
+            "wavelengthNm": 650,
+            "amplitudeVm": 500
+          },
+          "minInstances": 1,
+          "maxInstances": 1,
+          "validation": {
+            "on": {
+              "label": "Laser eingeschaltet",
+              "description": "Schaltet den Laserstrahl ein oder aus. Das entspricht dem Schalter am Laserpointer in der 3D-Szene.",
+              "type": "boolean"
+            },
+            "center": {
+              "label": "Laserposition (mm)",
+              "description": "Position der Strahlquelle. X und Y verschieben den Auftreffpunkt auf der Wand; Z verschiebt den Laser entlang der optischen Achse.",
+              "type": "vector3"
+            },
+            "radiusMm": {
+              "label": "Strahlradius (mm)",
+              "description": "Radius des gaußförmigen Laserstrahls. Bei diesem Abstand zur Strahlachse ist die Intensität auf etwa 1/e² ihres Maximums gefallen.",
+              "type": "number",
+              "min": 0.001
+            },
+            "wavelengthNm": {
+              "label": "Wellenlänge (nm)",
+              "description": "Wellenlänge des Lasers. Sie bestimmt die sichtbare Farbe und beeinflusst Beugung sowie Interferenz.",
+              "type": "number",
+              "min": 380,
+              "max": 780
+            },
+            "amplitudeVm": {
+              "label": "Feldamplitude (V/m)",
+              "description": "Maximale elektrische Feldstärke des einfallenden Laserstrahls. Ein größerer Wert erhöht die Intensität des berechneten Bildes.",
+              "type": "number",
+              "min": 0
+            }
+          },
+          "previewSupported": true
+        },
+        "DiffuseWall": {
+          "label": "Wand",
+          "deletable": false,
+          "required": ["center", "normal", "widthMm", "heightMm", "correlationLengthMm", "albedo"],
+          "hiddenProperties": ["rmsRoughnessMm"],
+          "defaults": {
+            "center": [128, 128, 256],
+            "normal": [0, 0, -1],
+            "widthMm": 11,
+            "heightMm": 11,
+            "correlationLengthMm": 0.04,
+            "albedo": 1
+          },
+          "minInstances": 1,
+          "maxInstances": 1,
+          "validation": {
+            "center": {
+              "label": "Wandposition (mm)",
+              "description": "Mittelpunkt der Wand. X und Y sind auf der optischen Achse fixiert; Z bestimmt den Abstand zum Laser.",
+              "type": "vector3",
+              "lockedComponents": ["x", "y"]
+            },
+            "normal": {
+              "label": "Wandnormale",
+              "description": "Richtung, in welche die Vorderseite der Wand zeigt. Sie ist für diesen optischen Aufbau fest vorgegeben.",
+              "type": "vector3",
+              "nonZero": true,
+              "lockedComponents": ["x", "y", "z"]
+            },
+            "widthMm": {
+              "label": "Wandbreite (mm)",
+              "description": "Sichtbare Breite der Wand in der 3D-Szene. Dieser Wert verändert weder das Simulationsfenster noch das berechnete Sensorbild.",
+              "type": "number",
+              "min": 0.001
+            },
+            "heightMm": {
+              "label": "Wandhöhe (mm)",
+              "description": "Sichtbare Höhe der Wand in der 3D-Szene. Dieser Wert verändert weder das Simulationsfenster noch das berechnete Sensorbild.",
+              "type": "number",
+              "min": 0.001
+            },
+            "correlationLengthMm": {
+              "label": "Rauheits-Korrelationslänge (mm)",
+              "description": "Typische seitliche Größe zusammenhängender Unebenheiten der Wand. Kleine Werte erzeugen eine feinere, große Werte eine gröbere Oberflächenstruktur.",
+              "type": "number",
+              "min": 0.001
+            },
+            "albedo": {
+              "label": "Reflexionsgrad",
+              "description": "Anteil der einfallenden Leistung, den die Wand reflektiert. 0 bedeutet vollständige Absorption, 1 ideale Reflexion.",
+              "type": "number",
+              "min": 0,
+              "max": 1
+            }
+          },
+          "previewSupported": true
+        },
+        "Lens": {
+          "label": "Linse",
+          "deletable": false,
+          "required": ["center", "focalLengthMm", "apertureRadiusMm", "transmission"],
+          "hiddenProperties": ["normal"],
+          "defaults": {
+            "center": [128, 128, -128],
+            "focalLengthMm": 128,
+            "apertureRadiusMm": 2.56,
+            "transmission": 1
+          },
+          "minInstances": 1,
+          "maxInstances": 1,
+          "validation": {
+            "center": {
+              "label": "Linsenposition (mm)",
+              "description": "Mittelpunkt der Linse. X und Y sind auf der optischen Achse fixiert; Z bestimmt ihre Position zwischen Wand und Sensor.",
+              "type": "vector3",
+              "lockedComponents": ["x", "y"]
+            },
+            "focalLengthMm": {
+              "label": "Brennweite (mm)",
+              "description": "Brennweite der dünnen Linse. Sie bestimmt zusammen mit Wand- und Linsenabstand die optimale Sensorposition.",
+              "type": "number",
+              "min": 0.001
+            },
+            "apertureRadiusMm": {
+              "label": "Aperturradius (mm)",
+              "description": "Radius der wirksamen Linsenöffnung. Eine größere Öffnung lässt mehr Licht durch und verändert das Beugungsbild.",
+              "type": "number",
+              "min": 0.001
+            },
+            "transmission": {
+              "label": "Amplitudentransmission",
+              "description": "Faktor zwischen 0 und 1, mit dem die Linse die elektrische Feldamplitude überträgt. Die übertragene Intensität skaliert mit dem Quadrat dieses Werts.",
+              "type": "number",
+              "min": 0,
+              "max": 1
+            }
+          },
+          "previewSupported": true
+        },
+        "Sensor": {
+          "label": "Sensor",
+          "deletable": false,
+          "mustBeBehind": {
+            "referenceObjectType": "Lens",
+            "normalObjectType": "DiffuseWall",
+            "minimumDistanceMm": 20
+          },
+          "required": ["center", "autoFocus", "widthMm", "heightMm"],
+          "hiddenProperties": ["normal"],
+          "defaults": {
+            "center": [128, 128, -320],
+            "autoFocus": true,
+            "widthMm": 5.12,
+            "heightMm": 5.12
+          },
+          "minInstances": 1,
+          "maxInstances": 1,
+          "validation": {
+            "center": {
+              "label": "Sensorposition (mm)",
+              "description": "Position des Sensors im optischen System. X und Y sind auf der optischen Achse fixiert; Z bestimmt den Abstand zur Linse.",
+              "type": "vector3",
+              "lockedComponents": ["x", "y"]
+            },
+            "autoFocus": {
+              "label": "Autofokus",
+              "description": "Setzt die Z-Position automatisch auf die berechnete Bildebene. Bei deaktiviertem Autofokus wird der eingetragene Z-Wert verwendet.",
+              "type": "boolean"
+            },
+            "widthMm": {
+              "label": "Sensorbreite (mm)",
+              "description": "Physische Breite der aktiven Sensorfläche. Sie ist unabhängig von Width und dem Sensor-Ausgabefaktor.",
+              "type": "number",
+              "min": 0.001
+            },
+            "heightMm": {
+              "label": "Sensorhöhe (mm)",
+              "description": "Physische Höhe der aktiven Sensorfläche. Sie ist unabhängig von Height und dem Sensor-Ausgabefaktor.",
+              "type": "number",
+              "min": 0.001
+            }
+          },
+          "previewSupported": true
+        }
+      }
+    }
+  }
+]

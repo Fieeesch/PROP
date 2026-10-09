@@ -1,0 +1,316 @@
+{
+  "version": 1,
+  "objects": [
+    {
+      "objectId": "3fc86203-2969-4292-92a9-9ded2a6d0b10",
+      "objectName": "Spectral Render Settings",
+      "objectType": "SpectralRenderSettings",
+      "objectCategory": "additional",
+      "previewSupported": false,
+      "properties": {
+        "imageWidth": 512,
+        "imageHeight": 512,
+        "samplesPerPixel": 64,
+        "maxDepth": 12,
+        "spectralSamples": 32,
+        "lambdaMinNm": 380,
+        "lambdaMaxNm": 780
+      }
+    },
+    {
+      "objectId": "40af234e-af02-4cf7-ab20-28e684c05792",
+      "objectName": "Camera",
+      "objectType": "Camera",
+      "objectCategory": "additional",
+      "previewSupported": true,
+      "properties": {
+        "lookFrom": [
+          0.25,
+          0.5,
+          1.5
+        ],
+        "lookAt": [
+          0.8,
+          0.5,
+          -0.5
+        ],
+        "up": [
+          0,
+          1,
+          0
+        ],
+        "verticalFov": 90,
+        "aperture": 0,
+        "focusDistance": 1.5
+      }
+    },
+    {
+      "objectId": "f2da6cba-ba1b-4959-89c1-eeb5bcfbddbf",
+      "objectName": "Triangular Prism",
+      "objectType": "TriangularPrism",
+      "objectCategory": "additional",
+      "previewSupported": true,
+      "properties": {
+        "baseCenter": [
+          -0.3,
+          0.01,
+          0.3
+        ],
+        "baseSize": 1,
+        "height": 1,
+        "material": {
+          "$ref": "701dfae1-7a36-4841-bd89-e8d02d1f78a6"
+        }
+      }
+    },
+    {
+      "objectId": "701dfae1-7a36-4841-bd89-e8d02d1f78a6",
+      "objectName": "Glass",
+      "objectType": "Material",
+      "objectCategory": "additional",
+      "previewSupported": false,
+      "properties": {
+        "type": "dielectric",
+        "albedo": [
+          1,
+          1,
+          1
+        ],
+        "fuzz": 0,
+        "ior": 1.5837,
+        "dispersive": true,
+        "dispersionA": 1.5837,
+        "dispersionB": 10800,
+        "dispersionC": 0,
+        "absorptionDensity": 0,
+        "absorptionColor": [
+          1,
+          1,
+          1
+        ],
+        "absorptionProfile": "constant",
+        "emission": [
+          0,
+          0,
+          0
+        ],
+        "emissionProfile": "d65-white",
+        "spectralProfile": "rgb"
+      }
+    },
+    {
+      "objectId": "7547151c-fec9-481f-b86b-38ea8918e65b",
+      "objectName": "Bottom",
+      "objectType": "Rectangle",
+      "objectCategory": "additional",
+      "previewSupported": true,
+      "properties": {
+        "orientation": "xz",
+        "minA": -3,
+        "maxA": 3,
+        "minB": -3,
+        "maxB": 3,
+        "k": 0,
+        "material": {
+          "$ref": "2e7bc621-ab95-4488-beaa-c277c7657a2c"
+        }
+      }
+    },
+    {
+      "objectId": "56114e1d-c6ab-4a4d-9af5-cbf63327a663",
+      "objectName": "Wall",
+      "objectType": "Rectangle",
+      "objectCategory": "additional",
+      "previewSupported": true,
+      "properties": {
+        "orientation": "xy",
+        "minA": -3,
+        "maxA": 3,
+        "minB": -3,
+        "maxB": 3,
+        "k": 3,
+        "material": {
+          "$ref": "2e7bc621-ab95-4488-beaa-c277c7657a2c"
+        }
+      }
+    },
+    {
+      "objectId": "d784e2a5-4f15-435f-be6a-674d18386b42",
+      "objectName": "Wall2",
+      "objectType": "Rectangle",
+      "objectCategory": "additional",
+      "previewSupported": true,
+      "properties": {
+        "orientation": "xy",
+        "minA": -3,
+        "maxA": 3,
+        "minB": -3,
+        "maxB": 3,
+        "k": -0.5,
+        "material": {
+          "$ref": "2e7bc621-ab95-4488-beaa-c277c7657a2c"
+        }
+      }
+    },
+    {
+      "objectId": "79f1a3f2-a586-4af2-adcf-2a5a4a237c15",
+      "objectName": "Wall3",
+      "objectType": "Rectangle",
+      "objectCategory": "additional",
+      "previewSupported": true,
+      "properties": {
+        "orientation": "yz",
+        "minA": -3,
+        "maxA": 3,
+        "minB": -3,
+        "maxB": 3,
+        "k": -3,
+        "material": {
+          "$ref": "2e7bc621-ab95-4488-beaa-c277c7657a2c"
+        }
+      }
+    },
+    {
+      "objectId": "4b292a6e-4878-4293-8e0f-a5cc211b1b95",
+      "objectName": "Wall4",
+      "objectType": "Rectangle",
+      "objectCategory": "additional",
+      "previewSupported": true,
+      "properties": {
+        "orientation": "yz",
+        "minA": -3,
+        "maxA": 3,
+        "minB": -3,
+        "maxB": 3,
+        "k": 0.7,
+        "material": {
+          "$ref": "2a31a665-5a3b-45d3-816b-88278f706e37"
+        }
+      }
+    },
+    {
+      "objectId": "27a18c31-9ab8-4d17-befa-1c3ccf018737",
+      "objectName": "LightSource",
+      "objectType": "Sphere",
+      "objectCategory": "additional",
+      "previewSupported": true,
+      "properties": {
+        "center": [
+          -1.6,
+          0.5,
+          0.3
+        ],
+        "radius": 0.2,
+        "material": {
+          "$ref": "2fbd50c7-2ba7-4a51-93d2-fe8479984ae3"
+        }
+      }
+    },
+    {
+      "objectId": "2fbd50c7-2ba7-4a51-93d2-fe8479984ae3",
+      "objectName": "Light",
+      "objectType": "Material",
+      "objectCategory": "additional",
+      "previewSupported": false,
+      "properties": {
+        "type": "emissive",
+        "albedo": [
+          1,
+          1,
+          1
+        ],
+        "fuzz": 0,
+        "ior": 1,
+        "dispersive": false,
+        "dispersionA": 1.5837,
+        "dispersionB": 10800,
+        "dispersionC": 0,
+        "absorptionDensity": 0,
+        "absorptionColor": [
+          1,
+          1,
+          1
+        ],
+        "absorptionProfile": "constant",
+        "emission": [
+          30,
+          30,
+          30
+        ],
+        "emissionProfile": "d65-white",
+        "spectralProfile": "rgb"
+      }
+    },
+    {
+      "objectId": "2e7bc621-ab95-4488-beaa-c277c7657a2c",
+      "objectName": "Background",
+      "objectType": "Material",
+      "objectCategory": "additional",
+      "previewSupported": false,
+      "properties": {
+        "type": "lambertian",
+        "albedo": [
+          0.2,
+          0.2,
+          0.2
+        ],
+        "fuzz": 0,
+        "ior": 1.5,
+        "dispersive": true,
+        "dispersionA": 1.5837,
+        "dispersionB": 10800,
+        "dispersionC": 0,
+        "absorptionDensity": 0,
+        "absorptionColor": [
+          1,
+          1,
+          1
+        ],
+        "absorptionProfile": "constant",
+        "emission": [
+          0,
+          0,
+          0
+        ],
+        "emissionProfile": "d65-white",
+        "spectralProfile": "rgb"
+      }
+    },
+    {
+      "objectId": "2a31a665-5a3b-45d3-816b-88278f706e37",
+      "objectName": "Metal",
+      "objectType": "Material",
+      "objectCategory": "additional",
+      "previewSupported": false,
+      "properties": {
+        "type": "metal",
+        "albedo": [
+          0.8,
+          0.8,
+          0.8
+        ],
+        "fuzz": 0.05,
+        "ior": 1,
+        "dispersive": true,
+        "dispersionA": 1.5837,
+        "dispersionB": 10800,
+        "dispersionC": 0,
+        "absorptionDensity": 0,
+        "absorptionColor": [
+          0.3,
+          0.3,
+          0.3
+        ],
+        "absorptionProfile": "constant",
+        "emission": [
+          0,
+          0,
+          0
+        ],
+        "emissionProfile": "d65-white",
+        "spectralProfile": "rgb"
+      }
+    }
+  ],
+  "renderer": "CUDA Spectral Pathtracer"
+}

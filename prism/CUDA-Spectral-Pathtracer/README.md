@@ -1,3 +1,9 @@
+### Original Project and Modifications
+
+This renderer is based on [CUDA-Spectral-Pathtracer](https://github.com/TheoBaudoinLighting/CUDA-Spectral-Pathtracer) by [TheoBaudoinLighting](https://github.com/TheoBaudoinLighting). As part of the project, it has been extended to support importing 3D models and rotating objects. Additionally, the renderer has been integrated into a unified frontend alongside other rendering engines.
+
+The following is the original README from the source repository.
+
 # PathTracer Spectral
 
 A personal, experimental project: A high-performance spectral path tracer implemented with CUDA that accurately simulates light dispersion effects and spectral rendering in real-time. This is a passion project created to explore the physics of light and GPU-accelerated rendering techniques.
